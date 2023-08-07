@@ -1,0 +1,22 @@
+---
+- name: make users
+  hosts: linux2
+  become: yes
+  vars:
+    users:
+      - batman
+      - thor
+      - shatner
+      - potter
+      - wormtail
+      - padfoot
+      - prongs
+      - mooney
+  tasks:
+    - name: spawn accounts
+      user:
+        name: "{{ item }}"
+        state: present
+        create_home: yes
+        shell: /bin/bash
+      with_items: "{{ users }}"

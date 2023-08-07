@@ -1,0 +1,11 @@
+- name: Update remote client
+  hosts: linux2
+  become: yes
+  tasks:
+    - name: run full upgrade
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist

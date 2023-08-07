@@ -1,0 +1,24 @@
+---
+- name: Install Python 2 and remove Python 3 if necessary
+  hosts: 10.0.0.2
+  become: yes
+  tasks:
+    - name: Update the apt
+      apt:
+        update_cache: yes
+
+    - name: Add universal repo for legacy python
+      apt_repository:
+        repo: 'deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} universe'
+        state: present
+
+    - name: Remove Python 3 if installed
+      apt:
+        name: python3
+        state: absent
+
+    - name: Install Python 2
+      apt:
+        name: python2
+        state: present
+
